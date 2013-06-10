@@ -22,7 +22,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        socket = new TFHClientSocket(MainActivity.this);
+        socket = new TFHClientSocket(this);
+        socket.start();
     }
 
 
@@ -64,7 +65,6 @@ public class MainActivity extends Activity {
         new AlertDialog.Builder(MainActivity.this)
                 // .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.make_room_title)
-                        // TODO check!!!
                 .setView(textEntryView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 

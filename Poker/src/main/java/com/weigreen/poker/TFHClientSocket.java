@@ -30,8 +30,8 @@ public class TFHClientSocket extends Thread implements Serializable {
 
     private final Long USER_ID;
 
-    public TFHClientSocket(MainActivity upper){
-        this.upper = upper;
+    public TFHClientSocket(MainActivity upper22){
+        this.upper = upper22;
         USER_ID = Long.getLong("0");
     }
 

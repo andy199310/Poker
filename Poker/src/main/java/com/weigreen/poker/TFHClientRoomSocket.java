@@ -23,12 +23,12 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
 
     private final int ROOM_PORT;
 
-    private MainActivity upper;
+    private RoomActivity upper;
 
 
     private final String TAG = "TFHClientSocket";
 
-    public TFHClientRoomSocket(int port, MainActivity upper){
+    public TFHClientRoomSocket(int port, RoomActivity upper){
         this.ROOM_PORT = port;
         this.upper = upper;
 
@@ -55,7 +55,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
                 short command =  main.getCommand();
                 Log.d(TAG, "(R)Server command:" + command);
 
-                upper.haveNewDataRoom(main);
+                upper.haveNewData(main);
 
             } catch (Exception e) {
                 e.printStackTrace();

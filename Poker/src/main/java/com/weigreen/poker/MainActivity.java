@@ -5,13 +5,14 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 
+import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("hi", "hi");
     }
 
 
@@ -21,5 +22,14 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
+
+    public void haveNewData(TFHBridgeMain main){
+        //here
+    }
+
+    public void haveNewDataRoom(TFHBridgeMain main){
+
+    }
+
 }

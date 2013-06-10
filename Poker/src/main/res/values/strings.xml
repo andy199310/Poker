@@ -27,13 +27,9 @@
     </string>
     <string name="nine" >9
     </string>
-    <string name="ten" >10
+    <string name="call" >Call
     </string>
-    <string name="eleven" >J
-    </string>
-    <string name="twelve" >Q
-    </string>
-    <string name="thirteen" >K
+    <string name="pass" >Pass
     </string>
     <string name="make_room_title" >Making Room</string>
     <string name="make_room_room_name" >Room Name:</string>

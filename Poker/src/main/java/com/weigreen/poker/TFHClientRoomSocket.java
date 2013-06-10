@@ -2,7 +2,11 @@ package com.weigreen.poker;
 
 import android.util.Log;
 
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataPlayer;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+import com.weigreen.ncu.tfh.communication.TFHComm;
 import com.weigreen.ncu.tfh.config.TFHConfig;
 
 import java.io.IOException;
@@ -25,13 +29,15 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
 
     private MainActivity upper;
 
+    private final Long USER_ID;
+
 
     private final String TAG = "TFHClientSocket";
 
     public TFHClientRoomSocket(int port, MainActivity upper){
         this.ROOM_PORT = port;
         this.upper = upper;
-
+        USER_ID = Long.parseLong("0");
 
     }
 
@@ -65,5 +71,70 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
             }
 
         }
+    }
+
+
+    public boolean dealCard()
+    {
+        TFHBridgeDataCard data = new TFHBridgeDataCard(null);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.CARD_DATA, USER_ID, data);
+
+
+        try {
+            output.writeObject(main);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean playerCallGodCard(String command, short playerNumber, short godCardSuit, short heap)
+    {
+        TFHBridgeDataGodCard data = new TFHBridgeDataGodCard(command, playerNumber, godCardSuit, heap);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.GOD_CARD_DATA, USER_ID, data);
+
+
+        try {
+            output.writeObject(main);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean playerSendCard(short playerNumber, short cardId)
+    {
+        TFHBridgeDataPlayer data = new TFHBridgeDataPlayer(playerNumber, cardId);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.PLAYER_DATA, USER_ID, data);
+
+
+        try {
+            output.writeObject(main);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean playerNewEnter()
+    {
+        TFHBridgeDataNewPlayer data = new TFHBridgeDataNewPlayer(-1);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.ROOM_NEW_PLAYER, USER_ID, data);
+
+
+        try {
+            output.writeObject(main);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

@@ -70,16 +70,5 @@ public class TFHClientSocket extends Thread implements Serializable {
         }
     }
 
-    public boolean makeRoom(String roomName){
-        TFHBridgeDataMakeRoom data = new TFHBridgeDataMakeRoom(roomName, 0);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.MAKE_ROOM, USER_ID, data);
-        try {
-            output.writeObject(main);
-            output.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
+
 }

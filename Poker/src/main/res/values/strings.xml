@@ -7,7 +7,9 @@
     </string>
     <string name="hello_world" >Hello world!
     </string>
-    <string name="hello_worl2d" >Hello worldNNNNN
-    </string>
+    <string name="make_room_title" >Making Room</string>
+    <string name="make_room_room_name" >Room Name:</string>
+    <string name="make_room_room_name_hide" >Room name</string>
+    <string name="make_room_submit" >Make!!</string>
 
 </resources>

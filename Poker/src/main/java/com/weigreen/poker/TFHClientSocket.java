@@ -2,7 +2,9 @@ package com.weigreen.poker;
 
 import android.util.Log;
 
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+import com.weigreen.ncu.tfh.communication.TFHComm;
 import com.weigreen.ncu.tfh.config.TFHConfig;
 
 import java.io.IOException;
@@ -26,8 +28,11 @@ public class TFHClientSocket extends Thread implements Serializable {
 
     private final String TAG = "TFHClientSocket";
 
+    private final Long USER_ID;
+
     public TFHClientSocket(MainActivity upper){
         this.upper = upper;
+        USER_ID = Long.getLong("0");
     }
 
 
@@ -63,5 +68,18 @@ public class TFHClientSocket extends Thread implements Serializable {
 
 
         }
+    }
+
+    public boolean makeRoom(String roomName){
+        TFHBridgeDataMakeRoom data = new TFHBridgeDataMakeRoom(roomName, 0);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.MAKE_ROOM, USER_ID, data);
+        try {
+            output.writeObject(main);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

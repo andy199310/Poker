@@ -45,14 +45,14 @@ public class RoomActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setUI();
+        this.setCallUI();
 
         port = getIntent().getIntExtra("port", 0);
         roomSocket = new TFHClientRoomSocket(port, this);
         roomSocket.start();
     }
 
-    private void setUI() {
+    private void setCallUI() {
 
         setContentView(R.layout.activity_room_call);
 
@@ -124,6 +124,31 @@ public class RoomActivity extends Activity {
                     suit = 3;
                 case R.id.clubButton:
                     suit = 4;
+                case R.id.oneButton:
+                    heap = 1;
+                case R.id.twoButton:
+                    heap = 2;
+                case R.id.threeButton:
+                    heap = 3;
+                case R.id.fourButton:
+                    heap = 4;
+                case R.id.fiveButton:
+                    heap = 5;
+                case R.id.sixButton:
+                    heap = 6;
+                case R.id.sevenButton:
+                    heap = 7;
+                case R.id.eightButton:
+                    heap = 8;
+                case R.id.nineButton:
+                    heap = 9;
+                case R.id.tenButton:
+                    heap = 10;
+                case R.id.callButton:
+
+
+                case R.id.passButton:
+                    heap = 0;
             }
         }
     };

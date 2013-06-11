@@ -145,8 +145,9 @@ public class RoomActivity extends Activity {
                 case R.id.tenButton:
                     heap = 10;
                 case R.id.callButton:
-
-
+                    if(heap != 0 && suit != 0){
+                        //call
+                    }
                 case R.id.passButton:
                     heap = 0;
             }

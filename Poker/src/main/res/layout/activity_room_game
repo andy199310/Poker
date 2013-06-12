@@ -43,9 +43,17 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/card_six"
+            android:id="@+id/card_five"
             android:layout_alignBottom="@+id/card_four"
             android:layout_toRightOf="@+id/card_four"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_six"
+            android:layout_alignBottom="@+id/card_five"
+            android:layout_toRightOf="@+id/card_five"
             android:src="@drawable/c000"/>
 
     <ImageButton
@@ -99,14 +107,6 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/card_thirteen"
-            android:layout_alignBottom="@+id/card_twelve"
-            android:layout_toRightOf="@+id/card_twelve"
-            android:src="@drawable/c000"/>
-
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/opposite"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -135,4 +135,12 @@
             android:src="@drawable/c000"
             android:layout_below="@+id/right"
             android:layout_toLeftOf="@+id/right"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_thirteen"
+            android:layout_alignBottom="@+id/card_twelve"
+            android:layout_toRightOf="@+id/card_twelve"
+            android:src="@drawable/c000"/>
 </RelativeLayout>

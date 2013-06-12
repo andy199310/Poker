@@ -32,6 +32,25 @@ public class RoomActivity extends Activity {
     private Button callButton;
     private Button passButton;
 
+    private ImageButton card_one;
+    private ImageButton card_two;
+    private ImageButton card_three;
+    private ImageButton card_four;
+    private ImageButton card_five;
+    private ImageButton card_six;
+    private ImageButton card_seven;
+    private ImageButton card_eight;
+    private ImageButton card_nine;
+    private ImageButton card_ten;
+    private ImageButton card_eleven;
+    private ImageButton card_twelve;
+    private ImageButton card_thirteen;
+
+    private ImageButton opposite;
+    private ImageButton left;
+    private ImageButton right;
+    private ImageButton home;
+
     private short suit;
     private short heap;
 
@@ -89,6 +108,44 @@ public class RoomActivity extends Activity {
         passButton = (Button)findViewById(R.id.passButton);
         passButton.setOnClickListener(buttonOnClick);
     }
+
+    private void setGameUI() {
+
+        setContentView(R.layout.activity_room_game);
+
+        card_one = (ImageButton)findViewById(R.id.card_one);
+        card_one.setOnClickListener(buttonOnClick);
+        card_two = (ImageButton)findViewById(R.id.card_two);
+        card_two.setOnClickListener(buttonOnClick);
+        card_three = (ImageButton)findViewById(R.id.card_three);
+        card_three.setOnClickListener(buttonOnClick);
+        card_four = (ImageButton)findViewById(R.id.card_four);
+        card_four.setOnClickListener(buttonOnClick);
+        card_five = (ImageButton)findViewById(R.id.card_five);
+        card_five.setOnClickListener(buttonOnClick);
+        card_six = (ImageButton)findViewById(R.id.card_six);
+        card_six.setOnClickListener(buttonOnClick);
+        card_seven = (ImageButton)findViewById(R.id.card_seven);
+        card_seven.setOnClickListener(buttonOnClick);
+        card_eight = (ImageButton)findViewById(R.id.card_eight);
+        card_eight.setOnClickListener(buttonOnClick);
+        card_nine = (ImageButton)findViewById(R.id.card_nine);
+        card_nine.setOnClickListener(buttonOnClick);
+        card_ten = (ImageButton)findViewById(R.id.card_ten);
+        card_ten.setOnClickListener(buttonOnClick);
+        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
+        card_eleven.setOnClickListener(buttonOnClick);
+        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
+        card_twelve.setOnClickListener(buttonOnClick);
+        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
+        card_thirteen.setOnClickListener(buttonOnClick);
+
+        opposite = (ImageButton)findViewById(R.id.opposite);
+        left = (ImageButton)findViewById(R.id.left);
+        right = (ImageButton)findViewById(R.id.right);
+        home = (ImageButton)findViewById(R.id.home);
+    }
+
     public void haveNewData(TFHBridgeMain main){
 
     }
@@ -150,6 +207,33 @@ public class RoomActivity extends Activity {
                     }
                 case R.id.passButton:
                     heap = 0;
+
+                case R.id.card_one:
+
+                case R.id.card_two:
+
+                case R.id.card_three:
+
+                case R.id.card_four:
+
+                case R.id.card_five:
+
+                case R.id.card_six:
+
+                case R.id.card_seven:
+
+                case R.id.card_eight:
+
+                case R.id.card_nine:
+
+                case R.id.card_ten:
+
+                case R.id.card_eleven:
+
+                case R.id.card_twelve:
+
+                case R.id.card_thirteen:
+
             }
         }
     };

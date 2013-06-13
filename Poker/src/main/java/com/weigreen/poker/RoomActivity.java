@@ -1,13 +1,17 @@
 package com.weigreen.poker;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.os.Handler;
 
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+
+import java.util.List;
 
 /**
  * Created by roy on 2013/6/10.
@@ -209,30 +213,43 @@ public class RoomActivity extends Activity {
                     heap = 0;
 
                 case R.id.card_one:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_two:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_three:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_four:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_five:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_six:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_seven:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_eight:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_nine:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_ten:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_eleven:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_twelve:
+                    card_one.setImageResource(R.drawable.c000);
 
                 case R.id.card_thirteen:
+                    card_one.setImageResource(R.drawable.c000);
 
             }
         }

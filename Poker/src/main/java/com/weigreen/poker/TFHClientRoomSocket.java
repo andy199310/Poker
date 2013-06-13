@@ -2,9 +2,11 @@ package com.weigreen.poker;
 
 import android.util.Log;
 
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataCard;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataNewPlayer;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataPlayer;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
 import com.weigreen.ncu.tfh.communication.TFHComm;
@@ -79,7 +81,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
     public boolean dealCard()
     {
         TFHBridgeDataCard data = new TFHBridgeDataCard(null);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.CARD_DATA, USER_ID, data);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.CARD_DATA, data);
 
 
         try {
@@ -95,7 +97,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
     public boolean playerCallGodCard(String command, short playerNumber, short godCardSuit, short heap)
     {
         TFHBridgeDataGodCard data = new TFHBridgeDataGodCard(command, playerNumber, godCardSuit, heap);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.GOD_CARD_DATA, USER_ID, data);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.GOD_CARD_DATA, data);
 
 
         try {
@@ -111,7 +113,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
     public boolean playerSendCard(short playerNumber, short cardId)
     {
         TFHBridgeDataPlayer data = new TFHBridgeDataPlayer(playerNumber, cardId);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.PLAYER_DATA, USER_ID, data);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.PLAYER_DATA, data);
 
 
         try {
@@ -126,8 +128,8 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
 
     public boolean playerNewEnter()
     {
-        TFHBridgeDataNewPlayer data = new TFHBridgeDataNewPlayer(-1);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.ROOM_NEW_PLAYER, USER_ID, data);
+        TFHBridgeDataNewPlayer data = new TFHBridgeDataNewPlayer((short)-1);
+        TFHBridgeMain main = new TFHBridgeMain(TFHComm.ROOM_NEW_PLAYER, data);
 
 
         try {
@@ -140,20 +142,6 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
         return true;
     }
 
-    public boolean makeRoom(String roomName){
-        TFHBridgeDataMakeRoom data = new TFHBridgeDataMakeRoom(roomName, 0);
-        TFHBridgeMain main = new TFHBridgeMain(TFHComm.MAKE_ROOM, USER_ID, data);
 
-
-
-        try {
-            output.writeObject(main);
-            output.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 
 }

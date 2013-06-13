@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:text="@string/room_name"
+        android:text="@string/make_room_room_name"
         android:gravity="left"
         android:textAppearance="?android:attr/textAppearanceMedium" />
             

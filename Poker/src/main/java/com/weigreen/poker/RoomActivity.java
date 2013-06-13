@@ -2,6 +2,7 @@ package com.weigreen.poker;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
@@ -67,6 +68,7 @@ public class RoomActivity extends Activity {
         this.setCallUI();
 
         port = getIntent().getIntExtra("port", 0);
+        Log.d("Room port", String.valueOf(port));
         roomSocket = new TFHClientRoomSocket(port, this);
         roomSocket.start();
     }
@@ -199,8 +201,8 @@ public class RoomActivity extends Activity {
                     heap = 8;
                 case R.id.nineButton:
                     heap = 9;
-                case R.id.tenButton:
-                    heap = 10;
+                //case R.id.tenButton:
+                //    heap = 10;
                 case R.id.callButton:
                     if(heap != 0 && suit != 0){
                         //call

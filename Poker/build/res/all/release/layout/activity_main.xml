@@ -1,16 +1,45 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+<?xml version="1.0" encoding="utf-8"?>
+
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/room_list"
+            android:id="@+id/textView"
+            android:layout_row="0"
+            android:layout_column="0"/>
 
-</RelativeLayout>
+    <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/room_list"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnSpan="3"
+            android:measureWithLargestChild="false">
+    </TableLayout>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/room_list_refresh"
+            android:id="@+id/button"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:onClick="onRefreshRoomList"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/make_room_title"
+            android:id="@+id/button2"
+            android:onClick="makeRoomSubmit"
+            android:layout_row="0"
+            android:layout_column="2"/>
+
+
+</GridLayout>

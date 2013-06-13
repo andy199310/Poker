@@ -31,9 +31,17 @@
     </string>
     <string name="pass" >Pass
     </string>
+
     <string name="make_room_title" >Making Room</string>
     <string name="make_room_room_name" >Room Name:</string>
     <string name="make_room_room_name_hide" >Room name</string>
     <string name="make_room_submit" >Make!!</string>
 
+
+    <string name="room_list">Room List</string>
+    <string name="room_list_refresh">Refresh</string>
+    <string name="table_main_id">Room ID</string>
+    <string name="table_main_name">Room Name</string>
+    <string name="table_main_people">Room People</string>
+    <string name="table_main_join">Join</string>
 </resources>

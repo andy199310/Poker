@@ -65,4 +65,7 @@
 
     <string name="call_word_my">It is your turn. Now at: %s</string>
     <string name="call_word_other">It is not your turn. Now at: %s</string>
+
+    <string name="game_turn_my">It is your turn.</string>
+    <string name="game_turn_other">It is not your turn.</string>
 </resources>

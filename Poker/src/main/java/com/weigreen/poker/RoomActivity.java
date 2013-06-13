@@ -112,6 +112,8 @@ public class RoomActivity extends Activity {
 
     private short nowPlayer;
 
+    private TextView turnText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -246,6 +248,7 @@ public class RoomActivity extends Activity {
 
         setContentView(R.layout.activity_room_game);
 
+        turnText = (TextView)findViewById(R.id.turnText);
         handCradArray = new ArrayList<ImageButton>();
 
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.op_layout);
@@ -662,6 +665,15 @@ public class RoomActivity extends Activity {
         short startSuit = (short) (tableCard[initPlayer]/100);
         boolean haveSuit = haveSuitOrNot(startSuit);
 
+        if (nowPlayer == myPlayerID) {
+
+            turnText.setText(R.string.game_turn_my);
+        }
+
+        else {
+
+            turnText.setText(R.string.game_turn_other);
+        }
 
         for (int i = 0; i < myCardUsed.length; i++) {
 

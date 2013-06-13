@@ -2,27 +2,22 @@ package com.weigreen.poker;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.os.Parcel;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Button;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.weigreen.ncu.tfh.bridge.Card;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataCard;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataNewPlayer;
-import com.weigreen.ncu.tfh.bridge.TFHBridgeDataRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
 import com.weigreen.ncu.tfh.communication.TFHComm;
-import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
-
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by roy on 2013/6/10.
@@ -88,6 +83,14 @@ public class RoomActivity extends Activity {
 
     private ArrayList<Button> callButtonArray;
 
+    private short callingSuit;
+
+    private short callingNumber;
+
+    private short wantCallSuit;
+
+    private short wantCallNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,13 +119,13 @@ public class RoomActivity extends Activity {
 
 
         spadeButton = (ImageButton)findViewById(R.id.spadeButton);
-        spadeButton.setOnClickListener(buttonOnClick);
+        spadeButton.setOnClickListener(buttonSuitOnClick);
         heartButton = (ImageButton)findViewById(R.id.heartButton);
-        heartButton.setOnClickListener(buttonOnClick);
+        heartButton.setOnClickListener(buttonSuitOnClick);
         diamondButton = (ImageButton)findViewById(R.id.diamondButton);
-        diamondButton.setOnClickListener(buttonOnClick);
+        diamondButton.setOnClickListener(buttonSuitOnClick);
         clubButton = (ImageButton)findViewById(R.id.clubButton);
-        clubButton.setOnClickListener(buttonOnClick);
+        clubButton.setOnClickListener(buttonSuitOnClick);
 
         callSuitArray.add(spadeButton);
         callSuitArray.add(heartButton);
@@ -131,23 +134,23 @@ public class RoomActivity extends Activity {
 
 
         oneButton = (Button)findViewById(R.id.oneButton);
-        oneButton.setOnClickListener(buttonOnClick);
+        oneButton.setOnClickListener(buttonNumberOnClick);
         twoButton = (Button)findViewById(R.id.twoButton);
-        twoButton.setOnClickListener(buttonOnClick);
+        twoButton.setOnClickListener(buttonNumberOnClick);
         threeButton = (Button)findViewById(R.id.threeButton);
-        threeButton.setOnClickListener(buttonOnClick);
+        threeButton.setOnClickListener(buttonNumberOnClick);
         fourButton = (Button)findViewById(R.id.fourButton);
-        fourButton.setOnClickListener(buttonOnClick);
+        fourButton.setOnClickListener(buttonNumberOnClick);
         fiveButton = (Button)findViewById(R.id.fiveButton);
-        fiveButton.setOnClickListener(buttonOnClick);
+        fiveButton.setOnClickListener(buttonNumberOnClick);
         sixButton = (Button)findViewById(R.id.sixButton);
-        sixButton.setOnClickListener(buttonOnClick);
+        sixButton.setOnClickListener(buttonNumberOnClick);
         sevenButton = (Button)findViewById(R.id.sevenButton);
-        sevenButton.setOnClickListener(buttonOnClick);
+        sevenButton.setOnClickListener(buttonNumberOnClick);
         eightButton = (Button)findViewById(R.id.eightButton);
-        eightButton.setOnClickListener(buttonOnClick);
+        eightButton.setOnClickListener(buttonNumberOnClick);
         nineButton = (Button)findViewById(R.id.nineButton);
-        eightButton.setOnClickListener(buttonOnClick);
+        eightButton.setOnClickListener(buttonNumberOnClick);
 
         callButtonArray.add(oneButton);
         callButtonArray.add(twoButton);
@@ -162,9 +165,9 @@ public class RoomActivity extends Activity {
 
 
         callButton = (Button)findViewById(R.id.callButton);
-        callButton.setOnClickListener(buttonOnClick);
+        callButton.setOnClickListener(buttonFunctionOnClick);
         passButton = (Button)findViewById(R.id.passButton);
-        passButton.setOnClickListener(buttonOnClick);
+        passButton.setOnClickListener(buttonFunctionOnClick);
 
         card_one = (ImageButton)findViewById(R.id.card_one);
         setClickableFalse(card_one);
@@ -206,9 +209,10 @@ public class RoomActivity extends Activity {
         handCradArray.add(card_eleven);
         handCradArray.add(card_twelve);
         handCradArray.add(card_thirteen);
+
         setMyHandCard();
-		setCallSuitOnOff(false);
-		setCallNumberOnOff(false);
+		setCallSuitOnOff(0, false);
+		setCallNumberOnOff(0, false);
 		
     }
 
@@ -219,54 +223,54 @@ public class RoomActivity extends Activity {
 
         setContentView(R.layout.activity_room_game);
 
-        card_one = (ImageButton)findViewById(R.id.card_one);
-        setClickableTrue(card_one);
-        card_one.setOnClickListener(buttonOnClick);
-        card_two = (ImageButton)findViewById(R.id.card_two);
-        setClickableTrue(card_two);
-        card_two.setOnClickListener(buttonOnClick);
-        card_three = (ImageButton)findViewById(R.id.card_three);
-        setClickableTrue(card_three);
-        card_three.setOnClickListener(buttonOnClick);
-        card_four = (ImageButton)findViewById(R.id.card_four);
-        setClickableTrue(card_four);
-        card_four.setOnClickListener(buttonOnClick);
-        card_five = (ImageButton)findViewById(R.id.card_five);
-        setClickableTrue(card_five);
-        card_five.setOnClickListener(buttonOnClick);
-        card_six = (ImageButton)findViewById(R.id.card_six);
-        setClickableTrue(card_six);
-        card_six.setOnClickListener(buttonOnClick);
-        card_seven = (ImageButton)findViewById(R.id.card_seven);
-        setClickableTrue(card_seven);
-        card_seven.setOnClickListener(buttonOnClick);
-        card_eight = (ImageButton)findViewById(R.id.card_eight);
-        setClickableTrue(card_eight);
-        card_eight.setOnClickListener(buttonOnClick);
-        card_nine = (ImageButton)findViewById(R.id.card_nine);
-        setClickableTrue(card_nine);
-        card_nine.setOnClickListener(buttonOnClick);
-        card_ten = (ImageButton)findViewById(R.id.card_ten);
-        setClickableTrue(card_ten);
-        card_ten.setOnClickListener(buttonOnClick);
-        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
-        setClickableTrue(card_eleven);
-        card_eleven.setOnClickListener(buttonOnClick);
-        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
-        setClickableTrue(card_twelve);
-        card_twelve.setOnClickListener(buttonOnClick);
-        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
-        setClickableTrue(card_thirteen);
-        card_thirteen.setOnClickListener(buttonOnClick);
-
-        opposite = (ImageButton)findViewById(R.id.opposite);
-        setClickableFalse(opposite);
-        left = (ImageButton)findViewById(R.id.left);
-        setClickableFalse(left);
-        right = (ImageButton)findViewById(R.id.right);
-        setClickableFalse(right);
-        home = (ImageButton)findViewById(R.id.home);
-        setClickableFalse(home);
+//        card_one = (ImageButton)findViewById(R.id.card_one);
+//        setClickableTrue(card_one);
+//        card_one.setOnClickListener(buttonOnClick);
+//        card_two = (ImageButton)findViewById(R.id.card_two);
+//        setClickableTrue(card_two);
+//        card_two.setOnClickListener(buttonOnClick);
+//        card_three = (ImageButton)findViewById(R.id.card_three);
+//        setClickableTrue(card_three);
+//        card_three.setOnClickListener(buttonOnClick);
+//        card_four = (ImageButton)findViewById(R.id.card_four);
+//        setClickableTrue(card_four);
+//        card_four.setOnClickListener(buttonOnClick);
+//        card_five = (ImageButton)findViewById(R.id.card_five);
+//        setClickableTrue(card_five);
+//        card_five.setOnClickListener(buttonOnClick);
+//        card_six = (ImageButton)findViewById(R.id.card_six);
+//        setClickableTrue(card_six);
+//        card_six.setOnClickListener(buttonOnClick);
+//        card_seven = (ImageButton)findViewById(R.id.card_seven);
+//        setClickableTrue(card_seven);
+//        card_seven.setOnClickListener(buttonOnClick);
+//        card_eight = (ImageButton)findViewById(R.id.card_eight);
+//        setClickableTrue(card_eight);
+//        card_eight.setOnClickListener(buttonOnClick);
+//        card_nine = (ImageButton)findViewById(R.id.card_nine);
+//        setClickableTrue(card_nine);
+//        card_nine.setOnClickListener(buttonOnClick);
+//        card_ten = (ImageButton)findViewById(R.id.card_ten);
+//        setClickableTrue(card_ten);
+//        card_ten.setOnClickListener(buttonOnClick);
+//        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
+//        setClickableTrue(card_eleven);
+//        card_eleven.setOnClickListener(buttonOnClick);
+//        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
+//        setClickableTrue(card_twelve);
+//        card_twelve.setOnClickListener(buttonOnClick);
+//        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
+//        setClickableTrue(card_thirteen);
+//        card_thirteen.setOnClickListener(buttonOnClick);
+//
+//        opposite = (ImageButton)findViewById(R.id.opposite);
+//        setClickableFalse(opposite);
+//        left = (ImageButton)findViewById(R.id.left);
+//        setClickableFalse(left);
+//        right = (ImageButton)findViewById(R.id.right);
+//        setClickableFalse(right);
+//        home = (ImageButton)findViewById(R.id.home);
+//        setClickableFalse(home);
 
     }
 
@@ -302,14 +306,33 @@ public class RoomActivity extends Activity {
                             Log.d("(R)DEAL CARD", "my card:" + myCardArray[i].getId());
                         }
                         setCallUI();
+                        callingSuit = 0;
+                        callingNumber = 0;
+                        if(myPlayerID == 0){
+                            decideOpenNumberButton();
+                            showNowCall(0);
+                        }else{
+                            showNowCall(1);
+                        }
 
                         break;
 					case TFHComm.GOD_CARD_DATA:
-						Log.d("(R)ACTIOM", "get god card data");
+						Log.d("(R)ACTION", "get god card data");
 						TFHBridgeDataGodCard tfhBridgeDataGodCard = (TFHBridgeDataGodCard) main.getData();
 						String godCardCommand = tfhBridgeDataGodCard.getCommand();
 						if (godCardCommand.equals("KEEP")){
 							//con
+                            callingSuit = tfhBridgeDataGodCard.getGodCardSuit();
+                            callingNumber = tfhBridgeDataGodCard.getHeap();
+                            if(isNowMyCallingTime(tfhBridgeDataGodCard.getPlayerNumber())){
+                                decideOpenNumberButton();
+                                showNowCall(0);
+                            }else{
+                                showNowCall(1);
+                            }
+
+
+
 						}else{
 							//finish
 						}
@@ -348,7 +371,7 @@ public class RoomActivity extends Activity {
         });
     }
 
-    private Button.OnClickListener buttonOnClick = new Button.OnClickListener() {
+    private Button.OnClickListener buttonSuitOnClick = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -356,91 +379,77 @@ public class RoomActivity extends Activity {
 
                 case R.id.spadeButton:
                     suit = 1;
+                    break;
                 case R.id.heartButton:
                     suit = 2;
+                    break;
                 case R.id.diamondButton:
                     suit = 3;
+                    break;
                 case R.id.clubButton:
                     suit = 4;
+                    break;
+
+            }
+            setCallSuitOnOff(0, false);
+            wantCallSuit = suit;
+            roomSocket.playerCallGodCard("CLIENT", myPlayerID, wantCallSuit, wantCallNumber);
+
+        }
+    };
+
+    private Button.OnClickListener buttonNumberOnClick = new Button.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId()){
                 case R.id.oneButton:
                     heap = 1;
+                    break;
                 case R.id.twoButton:
                     heap = 2;
+                    break;
                 case R.id.threeButton:
                     heap = 3;
+                    break;
                 case R.id.fourButton:
                     heap = 4;
+                    break;
                 case R.id.fiveButton:
                     heap = 5;
+                    break;
                 case R.id.sixButton:
                     heap = 6;
+                    break;
                 case R.id.sevenButton:
                     heap = 7;
+                    break;
                 case R.id.eightButton:
                     heap = 8;
+                    break;
                 case R.id.nineButton:
                     heap = 9;
-                //case R.id.tenButton:
-                //    heap = 10;
-                case R.id.callButton:
-                    if(heap != 0 && suit != 0){
-                        //call
-                    }
+                    break;
+
+
+                    //case R.id.tenButton:
+                    //    heap = 10;
+
+            }
+            setCallNumberOnOff(0, false);
+            RoomActivity.this.wantCallNumber = RoomActivity.this.heap;
+            decideOpenSuitButton();
+        }
+    };
+
+    private Button.OnClickListener buttonFunctionOnClick = new Button.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId()){
                 case R.id.passButton:
-                    heap = 0;
-
-                case R.id.card_one:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_one);
-
-                case R.id.card_two:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_two);
-
-                case R.id.card_three:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_three);
-
-                case R.id.card_four:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_four);
-
-                case R.id.card_five:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_five);
-
-                case R.id.card_six:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_six);
-
-                case R.id.card_seven:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_seven);
-
-                case R.id.card_eight:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_eight);
-
-                case R.id.card_nine:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_nine);
-
-                case R.id.card_ten:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_ten);
-
-                case R.id.card_eleven:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_eleven);
-
-                case R.id.card_twelve:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_twelve);
-
-                case R.id.card_thirteen:
-                    card_one.setImageResource(R.drawable.c000);
-                    setClickableFalse(card_thirteen);
-
+                    roomSocket.playerCallGodCard("CLIENT", myPlayerID, (short)0, (short)0);
+                    break;
             }
         }
     };
@@ -451,18 +460,17 @@ public class RoomActivity extends Activity {
     }
 
     private void setClickableTrue(ImageButton imageButton) {
-
         imageButton.setClickable(true);
     }
 	
-	private void setCallSuitOnOff(boolean onOff){
-		for (int i=0; i<callSuitArray.size(); i++){
+	private void setCallSuitOnOff(int from, boolean onOff){
+		for (int i=from; i<callSuitArray.size(); i++){
 			callSuitArray.get(i).setClickable(onOff);
 		}
 	}
 	
-	private void setCallNumberOnOff(boolean onOff){
-		for (int i=0; i<callButtonArray.size(); i++){
+	private void setCallNumberOnOff(int from, boolean onOff){
+		for (int i=from; i<callButtonArray.size(); i++){
 			callButtonArray.get(i).setClickable(onOff);
 		}
 	}
@@ -472,5 +480,94 @@ public class RoomActivity extends Activity {
             Log.d("(R)SET CARD", String.valueOf(i));
             handCradArray.get(i).setImageResource(Functions.cardToDrawableID(myCardArray[i].getId()));
         }
+    }
+
+    private void decideOpenNumberButton(){
+        if (callingSuit == 4){
+            setCallNumberOnOff(callingNumber, true);
+        }else{
+            setCallNumberOnOff(callingNumber-1, true);
+        }
+    }
+
+    private void decideOpenSuitButton(){
+        if (wantCallNumber > callingNumber){
+            setCallSuitOnOff(0, true);
+        }else{
+            switch(callingSuit){
+                case 4:
+                    callSuitArray.get(2).setClickable(true);
+                    callSuitArray.get(1).setClickable(true);
+                    callSuitArray.get(0).setClickable(true);
+                    break;
+                case 3:
+                    callSuitArray.get(1).setClickable(true);
+                    callSuitArray.get(0).setClickable(true);
+                    break;
+                case 2:
+                    callSuitArray.get(0).setClickable(true);
+                    break;
+                case 1:
+                    break;
+
+            }
+        }
+    }
+
+    private boolean isNowMyCallingTime(short upperPlayer){
+        if (upperPlayer == 0){
+            if (myPlayerID == 3){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(upperPlayer == 1){
+            if (myPlayerID == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(upperPlayer == 2){
+            if (myPlayerID == 1){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            if (myPlayerID == 2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    private void showNowCall(int who){
+        TextView textView = (TextView) findViewById(R.id.call_data_word);
+        if (who == 0){
+            textView.setText(getString(R.string.call_word_my, cardIDToString(callingSuit, callingNumber)));
+        }else{
+            textView.setText(getString(R.string.call_word_other, cardIDToString(callingSuit, callingNumber)));
+        }
+    }
+
+    private String cardIDToString(short suit, short number){
+        String word = "";
+        switch(suit){
+            case 1:
+                word = getString(R.string.spade);
+                break;
+            case 2:
+                word = getString(R.string.heart);
+                break;
+            case 3:
+                word = getString(R.string.diamond);
+                break;
+            case 4:
+                word = getString(R.string.club);
+                break;
+        }
+        word += String.valueOf(number);
+        return word;
     }
 }

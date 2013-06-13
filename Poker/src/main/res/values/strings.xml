@@ -32,6 +32,13 @@
     <string name="pass" >Pass
     </string>
 
+
+
+    <string name="spade" >Spade</string>
+    <string name="heart" >Heart</string>
+    <string name="diamond" >Diamond</string>
+    <string name="club" >Club</string>
+
     <string name="make_room_title" >Making Room</string>
     <string name="make_room_room_name" >Room Name:</string>
     <string name="make_room_room_name_hide" >Room name</string>
@@ -55,4 +62,7 @@
 
     <string name="team_score_0">N.S. Score: %d</string>
     <string name="team_score_1">E.W. Score: %d</string>
+
+    <string name="call_word_my">It is your turn. Now at: %s</string>
+    <string name="call_word_other">It is not your turn. Now at: %s</string>
 </resources>

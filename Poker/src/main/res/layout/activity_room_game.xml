@@ -9,12 +9,21 @@
                 tools:context=".MainActivity">
 
 
-    <LinearLayout
-            android:orientation="horizontal"
+    <HorizontalScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/op_layout">
-    </LinearLayout>
+            android:id="@+id/horizontalScrollView"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="158dp">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/op_layout">
+
+        </LinearLayout>
+    </HorizontalScrollView>
 </RelativeLayout>

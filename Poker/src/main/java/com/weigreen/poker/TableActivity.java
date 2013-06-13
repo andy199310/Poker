@@ -107,6 +107,7 @@ public class TableActivity extends Activity {
                         break;
                     case TFHComm.ROOM_DATA:
                         Log.d("(T)ACTION", "room data");
+                        setContentView(R.layout.activity_table_game);
                         TFHBridgeDataRoom tfhBridgeDataRoom = (TFHBridgeDataRoom) main.getData();
                         String dataRoomCommand = tfhBridgeDataRoom.getCommand();
                         if (dataRoomCommand.equalsIgnoreCase("START")){
@@ -133,7 +134,7 @@ public class TableActivity extends Activity {
             @Override
             public void run() {
                 TextView tableDisplayNowPlayer = (TextView) findViewById(R.id.table_display_word);
-                tableDisplayNowPlayer.setText(getString(R.string.table_game_now_playing, nowPlayer));
+                tableDisplayNowPlayer.setText(getString(R.string.table_game_now_playing, inRoomPlayer));
 
                 TextView tableTeamScore0 = (TextView) findViewById(R.id.table_game_team_score_0);
                 tableTeamScore0.setText(getString(R.string.team_score_0, teamScore[0]));

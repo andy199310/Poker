@@ -14,6 +14,8 @@
     <string name="eight">8</string>
     <string name="five">5</string>
     <string name="four">4</string>
+    <string name="game_turn_my">It is your turn.</string>
+    <string name="game_turn_other">It is not your turn.</string>
     <string name="heart">Heart</string>
     <string name="hello_worl2d">Hello worldNNNNN</string>
     <string name="hello_world">Hello world!</string>

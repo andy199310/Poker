@@ -134,18 +134,10 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/call"
-            android:id="@+id/callButton"
-            android:layout_alignTop="@+id/nineButton"
-            android:layout_alignLeft="@+id/fiveButton"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/pass"
             android:id="@+id/passButton"
-            android:layout_alignTop="@+id/callButton"
-            android:layout_alignRight="@+id/sevenButton"/>
+            android:layout_alignBottom="@+id/clubButton"
+            android:layout_toRightOf="@+id/card_four"/>
 
     <ImageButton
             android:layout_width="wrap_content"
@@ -191,9 +183,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/card_six"
-            android:layout_alignBottom="@+id/card_five"
-            android:layout_toRightOf="@+id/card_five"
-            android:src="@drawable/c000"/>
+            android:src="@drawable/c000"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/sixButton"/>
 
     <ImageButton
             android:layout_width="wrap_content"

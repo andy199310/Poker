@@ -35,4 +35,38 @@
             android:layout_marginBottom="25dp"
             android:layout_alignBottom="@+id/horizontalScrollView"
             android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player0"
+            android:layout_marginRight="21dp"
+            android:src="@drawable/c000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player3"
+            android:src="@drawable/c000"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/player0"
+            android:layout_marginRight="21dp"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player1"
+            android:src="@drawable/c000"
+            android:layout_alignTop="@+id/player3"
+            android:layout_alignParentRight="true"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player2"
+            android:src="@drawable/c000"
+            android:layout_alignBottom="@+id/horizontalScrollView"
+            android:layout_alignLeft="@+id/player0"/>
 </RelativeLayout>

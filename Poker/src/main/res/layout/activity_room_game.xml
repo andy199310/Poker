@@ -36,25 +36,23 @@
             android:layout_alignBottom="@+id/horizontalScrollView"
             android:layout_centerHorizontal="true"/>
 
-    <ImageButton
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/player0"
-            android:layout_marginRight="21dp"
             android:src="@drawable/c000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignTop="@+id/horizontalScrollView"
+            android:layout_toLeftOf="@+id/player1"/>
 
-    <ImageButton
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/player3"
             android:src="@drawable/c000"
             android:layout_centerVertical="true"
-            android:layout_alignRight="@+id/player0"
-            android:layout_marginRight="21dp"/>
+            android:layout_toLeftOf="@+id/player0"/>
 
-    <ImageButton
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/player1"
@@ -62,11 +60,11 @@
             android:layout_alignTop="@+id/player3"
             android:layout_alignParentRight="true"/>
 
-    <ImageButton
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/player2"
             android:src="@drawable/c000"
-            android:layout_alignBottom="@+id/horizontalScrollView"
-            android:layout_alignLeft="@+id/player0"/>
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/player1"/>
 </RelativeLayout>

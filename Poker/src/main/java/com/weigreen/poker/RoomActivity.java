@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -113,6 +114,8 @@ public class RoomActivity extends Activity {
     private short nowPlayer;
 
     private TextView turnText;
+
+    private ImageView[] playerArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,6 +251,11 @@ public class RoomActivity extends Activity {
 
         setContentView(R.layout.activity_room_game);
 
+        playerArray[0] = (ImageView)findViewById(R.id.player0);
+        playerArray[1] = (ImageView)findViewById(R.id.player1);
+        playerArray[2] = (ImageView)findViewById(R.id.player2);
+        playerArray[3] = (ImageView)findViewById(R.id.player3);
+
         turnText = (TextView)findViewById(R.id.turnText);
         handCradArray = new ArrayList<ImageButton>();
 
@@ -282,55 +290,6 @@ public class RoomActivity extends Activity {
             linearLayout.addView(imageButton);
         }
         refreshCard();
-//        card_one = (ImageButton)findViewById(R.id.card_one);
-//        setClickableTrue(card_one);
-//        card_one.setOnClickListener(buttonOnClick);
-//        card_two = (ImageButton)findViewById(R.id.card_two);
-//        setClickableTrue(card_two);
-//        card_two.setOnClickListener(buttonOnClick);
-//        card_three = (ImageButton)findViewById(R.id.card_three);
-//        setClickableTrue(card_three);
-//        card_three.setOnClickListener(buttonOnClick);
-//        card_four = (ImageButton)findViewById(R.id.card_four);
-//        setClickableTrue(card_four);
-//        card_four.setOnClickListener(buttonOnClick);
-//        card_five = (ImageButton)findViewById(R.id.card_five);
-//        setClickableTrue(card_five);
-//        card_five.setOnClickListener(buttonOnClick);
-//        card_six = (ImageButton)findViewById(R.id.card_six);
-//        setClickableTrue(card_six);
-//        card_six.setOnClickListener(buttonOnClick);
-//        card_seven = (ImageButton)findViewById(R.id.card_seven);
-//        setClickableTrue(card_seven);
-//        card_seven.setOnClickListener(buttonOnClick);
-//        card_eight = (ImageButton)findViewById(R.id.card_eight);
-//        setClickableTrue(card_eight);
-//        card_eight.setOnClickListener(buttonOnClick);
-//        card_nine = (ImageButton)findViewById(R.id.card_nine);
-//        setClickableTrue(card_nine);
-//        card_nine.setOnClickListener(buttonOnClick);
-//        card_ten = (ImageButton)findViewById(R.id.card_ten);
-//        setClickableTrue(card_ten);
-//        card_ten.setOnClickListener(buttonOnClick);
-//        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
-//        setClickableTrue(card_eleven);
-//        card_eleven.setOnClickListener(buttonOnClick);
-//        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
-//        setClickableTrue(card_twelve);
-//        card_twelve.setOnClickListener(buttonOnClick);
-//        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
-//        setClickableTrue(card_thirteen);
-//        card_thirteen.setOnClickListener(buttonOnClick);
-
-//        opposite = (ImageButton)findViewById(R.id.opposite);
-//        setClickableFalse(opposite);
-//        left = (ImageButton)findViewById(R.id.left);
-//        setClickableFalse(left);
-//        right = (ImageButton)findViewById(R.id.right);
-//        setClickableFalse(right);
-//        home = (ImageButton)findViewById(R.id.home);
-//        setClickableFalse(home);home
-
     }
 
     public void haveNewData(final TFHBridgeMain main){
@@ -700,6 +659,10 @@ public class RoomActivity extends Activity {
 
                 imageButton.setImageResource(R.drawable.c000);
             }
+        }
+
+        for (int i=0; i<4; i++){
+            playerArray[i].setImageResource(Functions.cardToDrawableID(tableCard[i]));
         }
     }
 

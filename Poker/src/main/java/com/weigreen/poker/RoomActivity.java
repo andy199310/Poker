@@ -354,8 +354,10 @@ public class RoomActivity extends Activity {
                         Log.d("(R)ACTION", "card data(deal card)");
                         TFHBridgeDataCard tfhBridgeDataCard = (TFHBridgeDataCard) main.getData();
                         myCardArray = tfhBridgeDataCard.getCardData()[myPlayerID];
+                        myCardUsed = new boolean[13];
                         for(int i=0; i<myCardArray.length; i++){
                             Log.d("(R)DEAL CARD", "my card:" + myCardArray[i].getId());
+
                             myCardUsed[i] = false;
                         }
                         setCallUI();

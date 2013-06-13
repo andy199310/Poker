@@ -335,6 +335,8 @@ public class RoomActivity extends Activity {
 
 						}else{
 							//finish
+                            Log.d("(A)ACTION", "finish call god card");
+                            // TODO here!!!
 						}
 						break;
                 }
@@ -486,7 +488,11 @@ public class RoomActivity extends Activity {
         if (callingSuit == 4){
             setCallNumberOnOff(callingNumber, true);
         }else{
-            setCallNumberOnOff(callingNumber-1, true);
+            if (callingNumber == 0){
+                setCallNumberOnOff(callingNumber, true);
+            }else{
+                setCallNumberOnOff(callingNumber-1, true);
+            }
         }
     }
 

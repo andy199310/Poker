@@ -1,6 +1,7 @@
 package com.weigreen.poker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,12 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
+import android.content.Context;
 
 import com.weigreen.ncu.tfh.bridge.Card;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataCard;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataNewPlayer;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
 import com.weigreen.ncu.tfh.communication.TFHComm;
 
@@ -76,6 +83,7 @@ public class RoomActivity extends Activity {
     private short myPlayerID = 100;
 
     private Card[] myCardArray;
+    private boolean[] myCardUsed;
 
     private ArrayList<ImageButton> handCradArray;
 
@@ -91,10 +99,25 @@ public class RoomActivity extends Activity {
 
     private short wantCallNumber;
 
+    private short kingSuit;
+
+    private PowerManager powerManager;
+    private WakeLock wakeLock;
+
+    private short[] teamScore = new short[2];
+
+    private short[] tableCard = new short[4];
+
+    private short initPlayer;
+
+    private short nowPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "BackLight");
         this.changeViewToWaiting();
 
         port = getIntent().getIntExtra("port", 0);
@@ -223,6 +246,36 @@ public class RoomActivity extends Activity {
 
         setContentView(R.layout.activity_room_game);
 
+        handCradArray = new ArrayList<ImageButton>();
+
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.op_layout);
+
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        //lp.setMargins(2, 2, 2, 2);
+
+        for (int i=0; i<myCardArray.length; i++){
+            ImageButton imageButton = new ImageButton(this);
+            imageButton.setLayoutParams(lp);
+            imageButton.setImageResource(R.drawable.c000);
+            imageButton.setClickable(false);
+
+            final int hi = i;
+
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                private short thisCardID = myCardArray[hi].getId();
+                //TFHBridgeDataPlayer(short playerNumber, short cardId)
+                //playerSendCard
+                public void onClick(View v) {
+                    // Perform action on click
+                    roomSocket.playerSendCard(myPlayerID, thisCardID);
+                }
+            });
+
+
+            handCradArray.add(imageButton);
+            linearLayout.addView(imageButton);
+        }
+        refreshCard();
 //        card_one = (ImageButton)findViewById(R.id.card_one);
 //        setClickableTrue(card_one);
 //        card_one.setOnClickListener(buttonOnClick);
@@ -262,15 +315,15 @@ public class RoomActivity extends Activity {
 //        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
 //        setClickableTrue(card_thirteen);
 //        card_thirteen.setOnClickListener(buttonOnClick);
-//
-//        opposite = (ImageButton)findViewById(R.id.opposite);
-//        setClickableFalse(opposite);
-//        left = (ImageButton)findViewById(R.id.left);
-//        setClickableFalse(left);
-//        right = (ImageButton)findViewById(R.id.right);
-//        setClickableFalse(right);
-//        home = (ImageButton)findViewById(R.id.home);
-//        setClickableFalse(home);
+
+        opposite = (ImageButton)findViewById(R.id.opposite);
+        setClickableFalse(opposite);
+        left = (ImageButton)findViewById(R.id.left);
+        setClickableFalse(left);
+        right = (ImageButton)findViewById(R.id.right);
+        setClickableFalse(right);
+        home = (ImageButton)findViewById(R.id.home);
+        setClickableFalse(home);
 
     }
 
@@ -278,7 +331,6 @@ public class RoomActivity extends Activity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //TODO main thing
                 short command = main.getCommand();
                 Log.d("(R)SERVER COMMAND:", String.valueOf(command));
 
@@ -304,6 +356,7 @@ public class RoomActivity extends Activity {
                         myCardArray = tfhBridgeDataCard.getCardData()[myPlayerID];
                         for(int i=0; i<myCardArray.length; i++){
                             Log.d("(R)DEAL CARD", "my card:" + myCardArray[i].getId());
+                            myCardUsed[i] = false;
                         }
                         setCallUI();
                         callingSuit = 0;
@@ -324,6 +377,10 @@ public class RoomActivity extends Activity {
 							//con
                             callingSuit = tfhBridgeDataGodCard.getGodCardSuit();
                             callingNumber = tfhBridgeDataGodCard.getHeap();
+                            if(callingSuit != 0){
+                                kingSuit = callingSuit;
+                            }
+
                             if(isNowMyCallingTime(tfhBridgeDataGodCard.getPlayerNumber())){
                                 decideOpenNumberButton();
                                 showNowCall(0);
@@ -337,8 +394,27 @@ public class RoomActivity extends Activity {
 							//finish
                             Log.d("(A)ACTION", "finish call god card");
                             // TODO here!!!
+                            setGameUI();
+                            refreshCard();
 						}
 						break;
+                    case TFHComm.ROOM_DATA:
+                        Log.d("(R)START", "start game");
+                        TFHBridgeDataRoom tfhBridgeDataRoom = (TFHBridgeDataRoom)main.getData();
+                        String dataRoomCommand = tfhBridgeDataRoom.getCommand();
+                        if (dataRoomCommand.equalsIgnoreCase("START")){
+                            teamScore[0] = tfhBridgeDataRoom.getNorthernHeap();
+                            teamScore[1] = tfhBridgeDataRoom.getEeasternHeap();
+                            tableCard = new short[4];
+                            initPlayer = tfhBridgeDataRoom.getInitialPlayerNumber();
+                            nowPlayer = tfhBridgeDataRoom.getNowPlayerNumber();
+                            refreshCard();
+                        }else{
+                            tableCard[nowPlayer] = tfhBridgeDataRoom.getCardId();
+                            nowPlayer = tfhBridgeDataRoom.getNowPlayerNumber();
+                            refreshCard();
+                        }
+                        break;
                 }
 
             }
@@ -575,5 +651,49 @@ public class RoomActivity extends Activity {
         }
         word += String.valueOf(number);
         return word;
+    }
+
+    private void refreshCard() {
+        short startSuit = (short) (tableCard[initPlayer]/100);
+        boolean haveSuit = haveSuitOrNot(startSuit);
+
+
+        for (int i = 0; i < myCardUsed.length; i++) {
+
+            ImageButton imageButton = handCradArray.get(i);
+            imageButton.setClickable(false);
+            if (myCardUsed[i] == false) {
+                imageButton.setImageResource(Functions.cardToDrawableID(myCardArray[i].getId()));
+                if (nowPlayer == myPlayerID){
+                    if(initPlayer == myPlayerID) {
+                        //all open
+                        imageButton.setClickable(true);
+                    }else if(haveSuit){
+                        //open that
+                        if(myCardArray[i].getSuit() == startSuit){
+                            imageButton.setClickable(true);
+                        }
+                    }else{
+                        //all
+                        imageButton.setClickable(true);
+                    }
+                }
+            }
+            else {
+
+                imageButton.setImageResource(R.drawable.c000);
+            }
+        }
+    }
+
+    private boolean haveSuitOrNot(short startSuit) {
+           for(int i=0; i < myCardArray.length; i++){
+               if (myCardArray[i].getSuit() == startSuit){
+                   if (myCardUsed[i] == false){
+                       return true;
+                   }
+               }
+           }
+            return false;
     }
 }

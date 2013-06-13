@@ -262,12 +262,15 @@ public class RoomActivity extends Activity {
             final int hi = i;
 
             imageButton.setOnClickListener(new View.OnClickListener() {
+                private short index = (short) hi;
                 private short thisCardID = myCardArray[hi].getId();
                 //TFHBridgeDataPlayer(short playerNumber, short cardId)
                 //playerSendCard
                 public void onClick(View v) {
                     // Perform action on click
+                    myCardUsed[index] = true;
                     roomSocket.playerSendCard(myPlayerID, thisCardID);
+
                 }
             });
 

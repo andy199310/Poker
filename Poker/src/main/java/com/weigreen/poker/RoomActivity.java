@@ -316,14 +316,14 @@ public class RoomActivity extends Activity {
 //        setClickableTrue(card_thirteen);
 //        card_thirteen.setOnClickListener(buttonOnClick);
 
-        opposite = (ImageButton)findViewById(R.id.opposite);
-        setClickableFalse(opposite);
-        left = (ImageButton)findViewById(R.id.left);
-        setClickableFalse(left);
-        right = (ImageButton)findViewById(R.id.right);
-        setClickableFalse(right);
-        home = (ImageButton)findViewById(R.id.home);
-        setClickableFalse(home);
+//        opposite = (ImageButton)findViewById(R.id.opposite);
+//        setClickableFalse(opposite);
+//        left = (ImageButton)findViewById(R.id.left);
+//        setClickableFalse(left);
+//        right = (ImageButton)findViewById(R.id.right);
+//        setClickableFalse(right);
+//        home = (ImageButton)findViewById(R.id.home);
+//        setClickableFalse(home);home
 
     }
 

@@ -10,9 +10,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.os.Handler;
+import android.widget.TextView;
 
+import com.weigreen.ncu.tfh.bridge.Card;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataCard;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataNewPlayer;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+import com.weigreen.ncu.tfh.communication.TFHComm;
+import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,16 +76,33 @@ public class RoomActivity extends Activity {
 
     private int port;
 
+    private short inRoomPlayer = 0;
+
+    private short myPlayerID = 100;
+
+    private Card[] myCardArray;
+
+    private ArrayList<ImageButton> handCradArray;
+
+    private ArrayList<ImageButton> callSuitArray;
+
+    private ArrayList<Button> callButtonArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        this.setCallUI();
+        this.changeViewToWaiting();
 
         port = getIntent().getIntExtra("port", 0);
         roomSocket = new TFHClientRoomSocket(port, this);
         roomSocket.start();
     }
+
+    private void changeViewToWaiting() {
+        setContentView(R.layout.activity_table_waiting);
+    }
+
 
     /**
      * set Call UI
@@ -84,6 +110,10 @@ public class RoomActivity extends Activity {
     private void setCallUI() {
 
         setContentView(R.layout.activity_room_call);
+        handCradArray = new ArrayList<ImageButton>();
+        callSuitArray = new ArrayList<ImageButton>();
+        callButtonArray = new ArrayList<Button>();
+
 
         spadeButton = (ImageButton)findViewById(R.id.spadeButton);
         spadeButton.setOnClickListener(buttonOnClick);
@@ -93,6 +123,12 @@ public class RoomActivity extends Activity {
         diamondButton.setOnClickListener(buttonOnClick);
         clubButton = (ImageButton)findViewById(R.id.clubButton);
         clubButton.setOnClickListener(buttonOnClick);
+
+        callSuitArray.add(spadeButton);
+        callSuitArray.add(heartButton);
+        callSuitArray.add(diamondButton);
+        callSuitArray.add(clubButton);
+
 
         oneButton = (Button)findViewById(R.id.oneButton);
         oneButton.setOnClickListener(buttonOnClick);
@@ -111,7 +147,19 @@ public class RoomActivity extends Activity {
         eightButton = (Button)findViewById(R.id.eightButton);
         eightButton.setOnClickListener(buttonOnClick);
         nineButton = (Button)findViewById(R.id.nineButton);
-        nineButton.setOnClickListener(buttonOnClick);
+        eightButton.setOnClickListener(buttonOnClick);
+
+        callButtonArray.add(oneButton);
+        callButtonArray.add(twoButton);
+        callButtonArray.add(threeButton);
+        callButtonArray.add(fourButton);
+        callButtonArray.add(fiveButton);
+        callButtonArray.add(sixButton);
+        callButtonArray.add(sevenButton);
+        callButtonArray.add(eightButton);
+        callButtonArray.add(eightButton);
+
+
 
         callButton = (Button)findViewById(R.id.callButton);
         callButton.setOnClickListener(buttonOnClick);
@@ -144,6 +192,24 @@ public class RoomActivity extends Activity {
         setClickableFalse(card_twelve);
         card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
         setClickableFalse(card_thirteen);
+
+        handCradArray.add(card_one);
+        handCradArray.add(card_two);
+        handCradArray.add(card_three);
+        handCradArray.add(card_four);
+        handCradArray.add(card_five);
+        handCradArray.add(card_six);
+        handCradArray.add(card_seven);
+        handCradArray.add(card_eight);
+        handCradArray.add(card_nine);
+        handCradArray.add(card_ten);
+        handCradArray.add(card_eleven);
+        handCradArray.add(card_twelve);
+        handCradArray.add(card_thirteen);
+        setMyHandCard();
+		setCallSuitOnOff(false);
+		setCallNumberOnOff(false);
+		
     }
 
     /**
@@ -201,13 +267,71 @@ public class RoomActivity extends Activity {
         setClickableFalse(right);
         home = (ImageButton)findViewById(R.id.home);
         setClickableFalse(home);
-    }
-
-    public void haveNewData(TFHBridgeMain main){
 
     }
 
+    public void haveNewData(final TFHBridgeMain main){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //TODO main thing
+                short command = main.getCommand();
+                Log.d("(R)SERVER COMMAND:", String.valueOf(command));
 
+                switch(command){
+                    case TFHComm.ROOM_NEW_PLAYER:
+                        Log.d("(R)ACTION", "room new player");
+                        TFHBridgeDataNewPlayer tfhBridgeDataNewPlayer = (TFHBridgeDataNewPlayer) main.getData();
+                        inRoomPlayer = (short) (tfhBridgeDataNewPlayer.getNewPlayerNumber() + 1);
+                        Log.d("(R)IN ROOM PLAYER", String.valueOf(inRoomPlayer));
+                        changeWaitingPerson();
+                        if(myPlayerID == 100){
+                            myPlayerID = (short) (inRoomPlayer-1);
+                            Log.d("My player id", String.valueOf(myPlayerID));
+                            if(myPlayerID == 3){
+                                // deal card when all player is in
+                                roomSocket.dealCard();
+                            }
+                        }
+                        break;
+                    case TFHComm.CARD_DATA:
+                        Log.d("(R)ACTION", "card data(deal card)");
+                        TFHBridgeDataCard tfhBridgeDataCard = (TFHBridgeDataCard) main.getData();
+                        myCardArray = tfhBridgeDataCard.getCardData()[myPlayerID];
+                        for(int i=0; i<myCardArray.length; i++){
+                            Log.d("(R)DEAL CARD", "my card:" + myCardArray[i].getId());
+                        }
+                        setCallUI();
+
+                        break;
+					case TFHComm.GOD_CARD_DATA:
+						Log.d("(R)ACTIOM", "get god card data");
+						TFHBridgeDataGodCard tfhBridgeDataGodCard = (TFHBridgeDataGodCard) main.getData();
+						String godCardCommand = tfhBridgeDataGodCard.getCommand();
+						if (godCardCommand.equals("KEEP")){
+							//con
+						}else{
+							//finish
+						}
+						break;
+                }
+
+            }
+        });
+    }
+
+    /**
+     * change the in room player
+     */
+    private void changeWaitingPerson() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                TextView tableDisplayWord = (TextView) findViewById(R.id.table_display_word);
+                tableDisplayWord.setText(getString(R.string.table_waiting_word, inRoomPlayer));
+            }
+        });
+    }
 
 
     public void showStateWord(final String word){
@@ -329,5 +453,24 @@ public class RoomActivity extends Activity {
     private void setClickableTrue(ImageButton imageButton) {
 
         imageButton.setClickable(true);
+    }
+	
+	private void setCallSuitOnOff(boolean onOff){
+		for (int i=0; i<callSuitArray.size(); i++){
+			callSuitArray.get(i).setClickable(onOff);
+		}
+	}
+	
+	private void setCallNumberOnOff(boolean onOff){
+		for (int i=0; i<callButtonArray.size(); i++){
+			callButtonArray.get(i).setClickable(onOff);
+		}
+	}
+
+    private void setMyHandCard(){
+        for (int i=0; i<handCradArray.size(); i++){
+            Log.d("(R)SET CARD", String.valueOf(i));
+            handCradArray.get(i).setImageResource(Functions.cardToDrawableID(myCardArray[i].getId()));
+        }
     }
 }

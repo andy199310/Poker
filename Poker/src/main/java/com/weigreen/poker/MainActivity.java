@@ -4,9 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,15 +39,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-        socket = new TFHClientSocket(this);
+        socket = new TFHClientSocket(MainActivity.this);
         socket.start();
-        TFHBridgeDataPlayer t = new TFHBridgeDataPlayer((short) 0 , (short)1);
-        Log.d("TEST1", String.valueOf(t.getCardId()));
+        TableLayout table = (TableLayout) findViewById(R.id.room_list);
 
-
-        TFHBridgeDataMakeRoom data = new TFHBridgeDataMakeRoom("name");
-        Log.d("TES2T", data.getRoomName());
+        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.setMargins(2, 2, 2, 2);
+        resetRoomListTable(table, lp);
     }
 
 
@@ -74,28 +77,43 @@ public class MainActivity extends Activity {
     public void onRefreshRoomList(View view){
         Log.d("button", "i'm here");
         TableLayout table = (TableLayout) findViewById(R.id.room_list);
-        table.removeAllViewsInLayout();
         socket.refreshRoom();
 
         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.setMargins(2, 2, 2, 2);
+        resetRoomListTable(table, lp);
+    }
+
+    /**
+     * Reset the table
+     * @param table
+     * @param lp
+     */
+    private void resetRoomListTable(TableLayout table, LayoutParams lp){
+        table.removeAllViewsInLayout();
         TableRow tableMainRow = new TableRow(MainActivity.this);
+
         tableMainRow.setLayoutParams(lp);
 
         TextView mainID = new TextView(MainActivity.this);
         mainID.setLayoutParams(lp);
         mainID.setText(getString(R.string.table_main_id));
+        mainID.setBackgroundResource(R.drawable.cell_shape);
 
         TextView mainName = new TextView(MainActivity.this);
         mainName.setLayoutParams(lp);
         mainName.setText(getString(R.string.table_main_name));
+        mainName.setBackgroundResource(R.drawable.cell_shape);
 
         TextView mainJoinPeople = new TextView(MainActivity.this);
         mainJoinPeople.setLayoutParams(lp);
         mainJoinPeople.setText(getString(R.string.table_main_people));
+        mainJoinPeople.setBackgroundResource(R.drawable.cell_shape);
 
         TextView mainJoin = new TextView(MainActivity.this);
         mainJoin.setLayoutParams(lp);
         mainJoin.setText(getString(R.string.table_main_join));
+        mainJoinPeople.setBackgroundResource(R.drawable.cell_shape);
 
         tableMainRow.addView(mainID);
         tableMainRow.addView(mainName);
@@ -111,34 +129,10 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 TableLayout table = (TableLayout)findViewById(R.id.room_list);
-                table.removeAllViewsInLayout();
 
                 LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                TableRow tableMainRow = new TableRow(MainActivity.this);
-                tableMainRow.setLayoutParams(lp);
-
-                TextView mainID = new TextView(MainActivity.this);
-                mainID.setLayoutParams(lp);
-                mainID.setText(getString(R.string.table_main_id));
-
-                TextView mainName = new TextView(MainActivity.this);
-                mainName.setLayoutParams(lp);
-                mainName.setText(getString(R.string.table_main_name));
-
-                TextView mainJoinPeople = new TextView(MainActivity.this);
-                mainJoinPeople.setLayoutParams(lp);
-                mainJoinPeople.setText(getString(R.string.table_main_people));
-
-                TextView mainJoin = new TextView(MainActivity.this);
-                mainJoin.setLayoutParams(lp);
-                mainJoin.setText(getString(R.string.table_main_join));
-
-                tableMainRow.addView(mainID);
-                tableMainRow.addView(mainName);
-                tableMainRow.addView(mainJoinPeople);
-                tableMainRow.addView(mainJoin);
-
-                table.addView(tableMainRow);
+                lp.setMargins(2, 2, 2, 2);
+                resetRoomListTable(table, lp);
 
                 roomPortList = new ArrayList<Integer>();
                 for (int i=0; i<data.getRow(); i++){
@@ -148,20 +142,28 @@ public class MainActivity extends Activity {
                     String name = data.getData(i, 3);
                     roomPortList.add(Integer.getInteger(port));
                     Log.d("room" + i, id);
+
                     TableRow tableRow = new TableRow(MainActivity.this);
                     tableRow.setLayoutParams(lp);
+                    tableRow.setBackgroundColor(Color.BLACK);
+
 
                     TextView rowID = new TextView(MainActivity.this);
                     rowID.setLayoutParams(lp);
                     rowID.setText(id);
+                    //rowID.setBackgroundResource(R.drawable.cell_shape);
+                    rowID.setBackgroundColor(Color.WHITE);
+                    rowID.setPadding(1, 1, 1, 1);
 
                     TextView rowName = new TextView(MainActivity.this);
                     rowName.setLayoutParams(lp);
                     rowName.setText(name);
+                    rowName.setBackgroundResource(R.drawable.cell_shape);
 
                     TextView rowJoinPeople = new TextView(MainActivity.this);
                     rowJoinPeople.setLayoutParams(lp);
                     rowJoinPeople.setText(join);
+                    rowJoinPeople.setBackgroundResource(R.drawable.cell_shape);
 
                     Button rowButton = new Button(MainActivity.this);
                     rowButton.setLayoutParams(lp);
@@ -178,11 +180,27 @@ public class MainActivity extends Activity {
                         }
                     });
 
+                    Button rowButtonTable = new Button(MainActivity.this);
+                    rowButtonTable.setLayoutParams(lp);
+                    rowButtonTable.setText(R.string.table_main_join);
+                    rowButtonTable.setOnClickListener(new View.OnClickListener() {
+                        private int thisPort = Integer.parseInt(port);
+
+                        public void onClick(View v) {
+                            // Perform action on click
+                            Log.d("Join table", "port:" + thisPort);
+                            Intent intent = new Intent(MainActivity.this, TableActivity.class);
+                            intent.putExtra("port", thisPort);
+                            startActivity(intent);
+                        }
+                    });
+
 
                     tableRow.addView(rowID);
                     tableRow.addView(rowName);
                     tableRow.addView(rowJoinPeople);
                     tableRow.addView(rowButton);
+                    tableRow.addView(rowButtonTable);
 
                     table.addView(tableRow);
 

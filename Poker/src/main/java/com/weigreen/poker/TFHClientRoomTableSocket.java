@@ -3,13 +3,10 @@ package com.weigreen.poker;
 import android.util.Log;
 
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataCard;
-import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataGodCard;
-import com.weigreen.ncu.tfh.bridge.TFHBridgeDataMakeRoom;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataNewPlayer;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeDataPlayer;
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
-import com.weigreen.ncu.tfh.communication.TFHComm;
 import com.weigreen.ncu.tfh.communication.TFHComm;
 import com.weigreen.ncu.tfh.config.TFHConfig;
 
@@ -23,7 +20,7 @@ import java.net.UnknownHostException;
 /**
  * Created by Green on 2013/6/10.
  */
-public class TFHClientRoomSocket extends Thread implements Serializable {
+public class TFHClientRoomTableSocket extends Thread implements Serializable {
 
     private Socket socket;
     private ObjectInputStream input;
@@ -31,14 +28,14 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
 
     private final int ROOM_PORT;
 
-    private RoomActivity upper;
+    private TableActivity upper;
 
     private final Long USER_ID;
 
 
     private final String TAG = "TFHClientSocket";
 
-    public TFHClientRoomSocket(int port, RoomActivity upper){
+    public TFHClientRoomTableSocket(int port, TableActivity upper){
         this.ROOM_PORT = port;
         this.upper = upper;
         USER_ID = Long.parseLong("0");
@@ -53,7 +50,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
             output = new ObjectOutputStream(socket.getOutputStream());
             output.flush();
             input = new ObjectInputStream(socket.getInputStream());
-            playerNewEnter();
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -131,7 +128,7 @@ public class TFHClientRoomSocket extends Thread implements Serializable {
         TFHBridgeDataNewPlayer data = new TFHBridgeDataNewPlayer((short)-1);
         TFHBridgeMain main = new TFHBridgeMain(TFHComm.ROOM_NEW_PLAYER, data);
 
-        Log.d(TAG, "!!!" + String.valueOf(main.getCommand()));
+
         try {
             output.writeObject(main);
             output.flush();

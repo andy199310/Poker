@@ -23,10 +23,18 @@
     <string name="room_list_refresh">Refresh</string>
     <string name="seven">7</string>
     <string name="six">6</string>
+    <string name="table_game_now_playing">Current player: %s</string>
     <string name="table_main_id">Room ID</string>
     <string name="table_main_join">Join</string>
     <string name="table_main_name">Room Name</string>
     <string name="table_main_people">Room People</string>
+    <string name="table_player_name_0">North</string>
+    <string name="table_player_name_1">East</string>
+    <string name="table_player_name_2">South</string>
+    <string name="table_player_name_3">West</string>
+    <string name="table_waiting_word">Current player in room: %d</string>
+    <string name="team_score_0">N.S. Score: %d</string>
+    <string name="team_score_1">E.W. Score: %d</string>
     <string name="three">3</string>
     <string name="two">2</string>
 

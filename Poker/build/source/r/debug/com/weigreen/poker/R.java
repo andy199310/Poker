@@ -68,17 +68,18 @@ public final class R {
         public static final int c411=0x7f020032;
         public static final int c412=0x7f020033;
         public static final int c413=0x7f020034;
-        public static final int club=0x7f020035;
-        public static final int diamond=0x7f020036;
-        public static final int heart=0x7f020037;
-        public static final int ic_launcher=0x7f020038;
-        public static final int spade=0x7f020039;
+        public static final int cell_shape=0x7f020035;
+        public static final int club=0x7f020036;
+        public static final int diamond=0x7f020037;
+        public static final int heart=0x7f020038;
+        public static final int ic_launcher=0x7f020039;
+        public static final int spade=0x7f02003a;
     }
     public static final class id {
-        public static final int action_settings=0x7f080029;
+        public static final int action_settings=0x7f080033;
         public static final int button=0x7f080002;
         public static final int button2=0x7f080003;
-        public static final int button_make_room_submit=0x7f080028;
+        public static final int button_make_room_submit=0x7f080032;
         public static final int callButton=0x7f080011;
         public static final int card_eight=0x7f08001a;
         public static final int card_eleven=0x7f08001d;
@@ -89,32 +90,42 @@ public final class R {
         public static final int card_seven=0x7f080019;
         public static final int card_six=0x7f080018;
         public static final int card_ten=0x7f08001c;
-        public static final int card_thirteen=0x7f080023;
+        public static final int card_thirteen=0x7f08001f;
         public static final int card_three=0x7f080015;
         public static final int card_twelve=0x7f08001e;
         public static final int card_two=0x7f080014;
         public static final int clubButton=0x7f080007;
-        public static final int code_code=0x7f080024;
-        public static final int code_input=0x7f080025;
+        public static final int code_code=0x7f08002e;
+        public static final int code_input=0x7f08002f;
         public static final int diamondButton=0x7f080006;
         public static final int eightButton=0x7f08000f;
         public static final int fiveButton=0x7f08000c;
         public static final int fourButton=0x7f08000b;
         public static final int heartButton=0x7f080005;
-        public static final int home=0x7f080022;
-        public static final int left=0x7f080020;
+        public static final int home=0x7f080023;
+        public static final int left=0x7f080021;
         public static final int nineButton=0x7f080010;
         public static final int oneButton=0x7f080008;
-        public static final int opposite=0x7f08001f;
+        public static final int opposite=0x7f080020;
         public static final int passButton=0x7f080012;
-        public static final int right=0x7f080021;
+        public static final int progressBar=0x7f08002b;
+        public static final int progressBar2=0x7f08002c;
+        public static final int right=0x7f080022;
         public static final int room_list=0x7f080001;
-        public static final int room_name_input=0x7f080027;
+        public static final int room_name_input=0x7f080031;
         public static final int sevenButton=0x7f08000e;
         public static final int sixButton=0x7f08000d;
         public static final int spadeButton=0x7f080004;
+        public static final int table_card_0=0x7f080025;
+        public static final int table_card_1=0x7f080028;
+        public static final int table_card_2=0x7f080027;
+        public static final int table_card_3=0x7f080026;
+        public static final int table_display_word=0x7f08002d;
+        public static final int table_game_display_now_player=0x7f080024;
+        public static final int table_game_team_score_0=0x7f080029;
+        public static final int table_game_team_score_1=0x7f08002a;
         public static final int textView=0x7f080000;
-        public static final int textView2=0x7f080026;
+        public static final int textView2=0x7f080030;
         public static final int threeButton=0x7f08000a;
         public static final int twoButton=0x7f080009;
     }
@@ -122,8 +133,10 @@ public final class R {
         public static final int activity_main=0x7f030000;
         public static final int activity_room_call=0x7f030001;
         public static final int activity_room_game=0x7f030002;
-        public static final int alert_dialog_text_entry=0x7f030003;
-        public static final int make_room_input=0x7f030004;
+        public static final int activity_table_game=0x7f030003;
+        public static final int activity_table_waiting=0x7f030004;
+        public static final int alert_dialog_text_entry=0x7f030005;
+        public static final int make_room_input=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -148,12 +161,20 @@ public final class R {
         public static final int room_list_refresh=0x7f050010;
         public static final int seven=0x7f050011;
         public static final int six=0x7f050012;
-        public static final int table_main_id=0x7f050013;
-        public static final int table_main_join=0x7f050014;
-        public static final int table_main_name=0x7f050015;
-        public static final int table_main_people=0x7f050016;
-        public static final int three=0x7f050017;
-        public static final int two=0x7f050018;
+        public static final int table_game_now_playing=0x7f050013;
+        public static final int table_main_id=0x7f050014;
+        public static final int table_main_join=0x7f050015;
+        public static final int table_main_name=0x7f050016;
+        public static final int table_main_people=0x7f050017;
+        public static final int table_player_name_0=0x7f050018;
+        public static final int table_player_name_1=0x7f050019;
+        public static final int table_player_name_2=0x7f05001a;
+        public static final int table_player_name_3=0x7f05001b;
+        public static final int table_waiting_word=0x7f05001c;
+        public static final int team_score_0=0x7f05001d;
+        public static final int team_score_1=0x7f05001e;
+        public static final int three=0x7f05001f;
+        public static final int two=0x7f050020;
     }
     public static final class style {
         /** 

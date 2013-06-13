@@ -111,6 +111,20 @@ public class RoomActivity extends Activity {
         callButton.setOnClickListener(buttonOnClick);
         passButton = (Button)findViewById(R.id.passButton);
         passButton.setOnClickListener(buttonOnClick);
+
+        card_one = (ImageButton)findViewById(R.id.card_one);
+        card_two = (ImageButton)findViewById(R.id.card_two);
+        card_three = (ImageButton)findViewById(R.id.card_three);
+        card_four = (ImageButton)findViewById(R.id.card_four);
+        card_five = (ImageButton)findViewById(R.id.card_five);
+        card_six = (ImageButton)findViewById(R.id.card_six);
+        card_seven = (ImageButton)findViewById(R.id.card_seven);
+        card_eight = (ImageButton)findViewById(R.id.card_eight);
+        card_nine = (ImageButton)findViewById(R.id.card_nine);
+        card_ten = (ImageButton)findViewById(R.id.card_ten);
+        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
+        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
+        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
     }
 
     private void setGameUI() {

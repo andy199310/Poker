@@ -1,14 +1,19 @@
 package com.weigreen.poker;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.os.Parcel;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.os.Handler;
 
 import com.weigreen.ncu.tfh.bridge.TFHBridgeMain;
+
+import java.util.List;
 
 /**
  * Created by roy on 2013/6/10.
@@ -65,14 +70,17 @@ public class RoomActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         this.setCallUI();
 
         port = getIntent().getIntExtra("port", 0);
-        Log.d("Room port", String.valueOf(port));
         roomSocket = new TFHClientRoomSocket(port, this);
         roomSocket.start();
     }
 
+    /**
+     * set Call UI
+     */
     private void setCallUI() {
 
         setContentView(R.layout.activity_room_call);
@@ -109,43 +117,90 @@ public class RoomActivity extends Activity {
         callButton.setOnClickListener(buttonOnClick);
         passButton = (Button)findViewById(R.id.passButton);
         passButton.setOnClickListener(buttonOnClick);
+
+        card_one = (ImageButton)findViewById(R.id.card_one);
+        setClickableFalse(card_one);
+        card_two = (ImageButton)findViewById(R.id.card_two);
+        setClickableFalse(card_two);
+        card_three = (ImageButton)findViewById(R.id.card_three);
+        setClickableFalse(card_three);
+        card_four = (ImageButton)findViewById(R.id.card_four);
+        setClickableFalse(card_four);
+        card_five = (ImageButton)findViewById(R.id.card_five);
+        setClickableFalse(card_five);
+        card_six = (ImageButton)findViewById(R.id.card_six);
+        setClickableFalse(card_six);
+        card_seven = (ImageButton)findViewById(R.id.card_seven);
+        setClickableFalse(card_seven);
+        card_eight = (ImageButton)findViewById(R.id.card_eight);
+        setClickableFalse(card_eight);
+        card_nine = (ImageButton)findViewById(R.id.card_nine);
+        setClickableFalse(card_nine);
+        card_ten = (ImageButton)findViewById(R.id.card_ten);
+        setClickableFalse(card_ten);
+        card_eleven = (ImageButton)findViewById(R.id.card_eleven);
+        setClickableFalse(card_eleven);
+        card_twelve = (ImageButton)findViewById(R.id.card_twelve);
+        setClickableFalse(card_twelve);
+        card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
+        setClickableFalse(card_thirteen);
     }
 
+    /**
+     * set Game UI
+     */
     private void setGameUI() {
 
         setContentView(R.layout.activity_room_game);
 
         card_one = (ImageButton)findViewById(R.id.card_one);
+        setClickableTrue(card_one);
         card_one.setOnClickListener(buttonOnClick);
         card_two = (ImageButton)findViewById(R.id.card_two);
+        setClickableTrue(card_two);
         card_two.setOnClickListener(buttonOnClick);
         card_three = (ImageButton)findViewById(R.id.card_three);
+        setClickableTrue(card_three);
         card_three.setOnClickListener(buttonOnClick);
         card_four = (ImageButton)findViewById(R.id.card_four);
+        setClickableTrue(card_four);
         card_four.setOnClickListener(buttonOnClick);
         card_five = (ImageButton)findViewById(R.id.card_five);
+        setClickableTrue(card_five);
         card_five.setOnClickListener(buttonOnClick);
         card_six = (ImageButton)findViewById(R.id.card_six);
+        setClickableTrue(card_six);
         card_six.setOnClickListener(buttonOnClick);
         card_seven = (ImageButton)findViewById(R.id.card_seven);
+        setClickableTrue(card_seven);
         card_seven.setOnClickListener(buttonOnClick);
         card_eight = (ImageButton)findViewById(R.id.card_eight);
+        setClickableTrue(card_eight);
         card_eight.setOnClickListener(buttonOnClick);
         card_nine = (ImageButton)findViewById(R.id.card_nine);
+        setClickableTrue(card_nine);
         card_nine.setOnClickListener(buttonOnClick);
         card_ten = (ImageButton)findViewById(R.id.card_ten);
+        setClickableTrue(card_ten);
         card_ten.setOnClickListener(buttonOnClick);
         card_eleven = (ImageButton)findViewById(R.id.card_eleven);
+        setClickableTrue(card_eleven);
         card_eleven.setOnClickListener(buttonOnClick);
         card_twelve = (ImageButton)findViewById(R.id.card_twelve);
+        setClickableTrue(card_twelve);
         card_twelve.setOnClickListener(buttonOnClick);
         card_thirteen = (ImageButton)findViewById(R.id.card_thirteen);
+        setClickableTrue(card_thirteen);
         card_thirteen.setOnClickListener(buttonOnClick);
 
         opposite = (ImageButton)findViewById(R.id.opposite);
+        setClickableFalse(opposite);
         left = (ImageButton)findViewById(R.id.left);
+        setClickableFalse(left);
         right = (ImageButton)findViewById(R.id.right);
+        setClickableFalse(right);
         home = (ImageButton)findViewById(R.id.home);
+        setClickableFalse(home);
     }
 
     public void haveNewData(TFHBridgeMain main){
@@ -211,32 +266,68 @@ public class RoomActivity extends Activity {
                     heap = 0;
 
                 case R.id.card_one:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_one);
 
                 case R.id.card_two:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_two);
 
                 case R.id.card_three:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_three);
 
                 case R.id.card_four:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_four);
 
                 case R.id.card_five:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_five);
 
                 case R.id.card_six:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_six);
 
                 case R.id.card_seven:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_seven);
 
                 case R.id.card_eight:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_eight);
 
                 case R.id.card_nine:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_nine);
 
                 case R.id.card_ten:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_ten);
 
                 case R.id.card_eleven:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_eleven);
 
                 case R.id.card_twelve:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_twelve);
 
                 case R.id.card_thirteen:
+                    card_one.setImageResource(R.drawable.c000);
+                    setClickableFalse(card_thirteen);
 
             }
         }
     };
+
+    private void setClickableFalse(ImageButton imageButton) {
+
+        imageButton.setClickable(false);
+    }
+
+    private void setClickableTrue(ImageButton imageButton) {
+
+        imageButton.setClickable(true);
+    }
 }

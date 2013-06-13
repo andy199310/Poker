@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:text="@string/call"
             android:id="@+id/callButton"
-            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/nineButton"
             android:layout_alignLeft="@+id/fiveButton"/>
 
     <Button
@@ -146,4 +146,108 @@
             android:id="@+id/passButton"
             android:layout_alignTop="@+id/callButton"
             android:layout_alignRight="@+id/sevenButton"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_one"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/eightButton"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_two"
+            android:layout_alignBottom="@+id/card_one"
+            android:layout_toRightOf="@+id/eightButton"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_three"
+            android:layout_alignBottom="@+id/card_two"
+            android:layout_toRightOf="@+id/card_two"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_four"
+            android:layout_alignBottom="@+id/card_three"
+            android:layout_toRightOf="@+id/card_three"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_five"
+            android:layout_alignBottom="@+id/card_four"
+            android:layout_toRightOf="@+id/card_four"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_six"
+            android:layout_alignBottom="@+id/card_five"
+            android:layout_toRightOf="@+id/card_five"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_seven"
+            android:layout_alignBottom="@+id/card_six"
+            android:layout_toRightOf="@+id/card_six"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_eight"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/card_seven"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_nine"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/card_eight"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_ten"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/card_nine"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_eleven"
+            android:layout_alignBottom="@+id/card_ten"
+            android:layout_toRightOf="@+id/card_ten"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_twelve"
+            android:layout_alignBottom="@+id/card_eleven"
+            android:layout_toRightOf="@+id/card_eleven"
+            android:src="@drawable/c000"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_thirteen"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/card_twelve"
+            android:src="@drawable/c000"/>
 </RelativeLayout>

@@ -47,7 +47,6 @@ public class RoomActivity extends Activity {
     private Button eightButton;
     private Button nineButton;
 
-    private Button callButton;
     private Button passButton;
 
     private ImageButton card_one;
@@ -189,7 +188,6 @@ public class RoomActivity extends Activity {
         callButtonArray.add(sevenButton);
         callButtonArray.add(eightButton);
         callButtonArray.add(eightButton);
-
 
 
 

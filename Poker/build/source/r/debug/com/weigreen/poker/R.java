@@ -108,9 +108,9 @@ public final class R {
         public static final int op_layout=0x7f080021;
         public static final int passButton=0x7f080011;
         public static final int player0=0x7f080023;
-        public static final int player1=0x7f080025;
+        public static final int player1=0x7f080024;
         public static final int player2=0x7f080026;
-        public static final int player3=0x7f080024;
+        public static final int player3=0x7f080025;
         public static final int progressBar=0x7f08002e;
         public static final int progressBar2=0x7f08002f;
         public static final int room_list=0x7f080001;

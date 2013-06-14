@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" >橋牌跟我走
+    </string>
+    <string name="action_settings" >Settings
+    </string>
+    <string name="hello_world" >Hello world!
+    </string>
+    <string name="hello_worl2d" >Hello worldNNNNN
+    </string>
+    <string name="one" >A
+    </string>
+    <string name="two" >2
+    </string>
+    <string name="three" >3
+    </string>
+    <string name="four" >4
+    </string>
+    <string name="five" >5
+    </string>
+    <string name="six" >6
+    </string>
+    <string name="seven" >7
+    </string>
+    <string name="eight" >8
+    </string>
+    <string name="nine" >9
+    </string>
+    <string name="call" >喊牌
+    </string>
+    <string name="pass" >放棄
+    </string>
+
+
+
+    <string name="spade" >黑桃</string>
+    <string name="heart" >紅心</string>
+    <string name="diamond" >方塊</string>
+    <string name="club" >梅花</string>
+
+    <string name="make_room_title" >創立房間</string>
+    <string name="make_room_room_name" >房間名稱:</string>
+    <string name="make_room_room_name_hide" >房間名稱</string>
+    <string name="make_room_submit" >創立成功!!</string>
+
+
+    <string name="room_list">房間列表</string>
+    <string name="room_list_refresh">重新整理</string>
+    <string name="table_main_id">房間編號</string>
+    <string name="table_main_name">房間名稱</string>
+    <string name="table_main_people">房間人數</string>
+    <string name="table_main_join">進入房間</string>
+
+    <string name="table_waiting_word">房間目前人數: %d</string>
+    <string name="table_game_now_playing">當前出牌: %s</string>
+
+    <string name="table_player_name_0">北</string>
+    <string name="table_player_name_1">東</string>
+    <string name="table_player_name_2">南</string>
+    <string name="table_player_name_3">西</string>
+
+    <string name="team_score_0">南北墩數: %d</string>
+    <string name="team_score_1">東西墩數: %d</string>
+
+    <string name="call_word_my">輪到你喊牌 目前喊至: %s</string>
+    <string name="call_word_other">輪到別人喊牌. 目前喊至: %s</string>
+
+    <string name="game_turn_my">輪到你出牌</string>
+    <string name="game_turn_other">輪到別人出牌</string>
+</resources>

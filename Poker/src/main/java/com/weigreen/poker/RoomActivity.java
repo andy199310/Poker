@@ -192,8 +192,7 @@ public class RoomActivity extends Activity {
 
 
 
-        callButton = (Button)findViewById(R.id.callButton);
-        callButton.setOnClickListener(buttonFunctionOnClick);
+
         passButton = (Button)findViewById(R.id.passButton);
         passButton.setOnClickListener(buttonFunctionOnClick);
 

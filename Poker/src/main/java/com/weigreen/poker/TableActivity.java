@@ -55,7 +55,8 @@ public class TableActivity extends Activity {
             @Override
             public void run() {
                 TextView tableDisplayWord = (TextView) findViewById(R.id.table_display_word);
-                tableDisplayWord.setText(getString(R.string.table_waiting_word, inRoomPlayer));
+                if(tableDisplayWord != null)
+                    tableDisplayWord.setText(getString(R.string.table_waiting_word, inRoomPlayer));
             }
         });
     }
@@ -77,11 +78,17 @@ public class TableActivity extends Activity {
     }
 
     private void changeViewToGame(){
-        setContentView(R.layout.activity_room_game);
+        setContentView(R.layout.activity_table_game);
+        cardImageViewArray = new ImageView[4];
         cardImageViewArray[0] = (ImageView) findViewById(R.id.table_card_0);
         cardImageViewArray[1] = (ImageView) findViewById(R.id.table_card_1);
         cardImageViewArray[2] = (ImageView) findViewById(R.id.table_card_2);
         cardImageViewArray[3] = (ImageView) findViewById(R.id.table_card_3);
+        tableCard = new short[4];
+        tableCard[0] = 0;
+        tableCard[1] = 0;
+        tableCard[2] = 0;
+        tableCard[3] = 0;
     }
 
 
@@ -104,16 +111,22 @@ public class TableActivity extends Activity {
                         inRoomPlayer = (short) (tfhBridgeDataNewPlayer.getNewPlayerNumber() + 1);
                         Log.d("(T)IN ROOM PLAYER", String.valueOf(inRoomPlayer));
                         changeWaitingPerson();
+                        if (inRoomPlayer > 3){
+                            changeViewToGame();
+                        }
                         break;
                     case TFHComm.ROOM_DATA:
                         Log.d("(T)ACTION", "room data");
-                        setContentView(R.layout.activity_table_game);
                         TFHBridgeDataRoom tfhBridgeDataRoom = (TFHBridgeDataRoom) main.getData();
                         String dataRoomCommand = tfhBridgeDataRoom.getCommand();
                         if (dataRoomCommand.equalsIgnoreCase("START")){
                             teamScore[0] = tfhBridgeDataRoom.getNorthernHeap();
                             teamScore[1] = tfhBridgeDataRoom.getEeasternHeap();
                             tableCard = new short[4];
+                            tableCard[0] = 0;
+                            tableCard[1] = 0;
+                            tableCard[2] = 0;
+                            tableCard[3] = 0;
                             initPlayer = tfhBridgeDataRoom.getInitialPlayerNumber();
                             nowPlayer = tfhBridgeDataRoom.getNowPlayerNumber();
                             refreshTableGUI();
@@ -133,8 +146,8 @@ public class TableActivity extends Activity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                TextView tableDisplayNowPlayer = (TextView) findViewById(R.id.table_display_word);
-                tableDisplayNowPlayer.setText(getString(R.string.table_game_now_playing, inRoomPlayer));
+                TextView tableDisplayNowPlayer = (TextView) findViewById(R.id.table_game_display_now_player);
+                tableDisplayNowPlayer.setText(getString(R.string.table_game_now_playing, nowPlayer));
 
                 TextView tableTeamScore0 = (TextView) findViewById(R.id.table_game_team_score_0);
                 tableTeamScore0.setText(getString(R.string.team_score_0, teamScore[0]));
@@ -144,7 +157,8 @@ public class TableActivity extends Activity {
 
 
                 for (int i=0; i<4; i++){
-                    cardImageViewArray[i].setImageResource(Functions.cardToDrawableID(tableCard[i]));
+                    short id = tableCard[i];
+                    cardImageViewArray[i].setImageResource(Functions.cardToDrawableID(id));
                 }
 
 //                if (tableCard[0] != 0) {

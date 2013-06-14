@@ -393,6 +393,7 @@ public class RoomActivity extends Activity {
             @Override
             public void run() {
                 TextView tableDisplayWord = (TextView) findViewById(R.id.table_display_word);
+                if(tableDisplayWord != null)
                 tableDisplayWord.setText(getString(R.string.table_waiting_word, inRoomPlayer));
             }
         });
